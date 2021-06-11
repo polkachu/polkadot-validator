@@ -1,0 +1,7 @@
+---
+- name: journalctl vacuum
+  shell: |
+    set -o pipefail
+    journalctl --vacuum-time=2d
+  args:
+    executable: /bin/bash

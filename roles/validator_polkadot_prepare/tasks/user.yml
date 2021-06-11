@@ -1,0 +1,12 @@
+---
+- name: create polkadot group
+  group:
+    name: polkadot
+    state: present
+
+- name: add polkadot user
+  user:
+    name: polkadot
+    groups: ["polkadot"]
+    append: yes
+    shell: /bin/bash

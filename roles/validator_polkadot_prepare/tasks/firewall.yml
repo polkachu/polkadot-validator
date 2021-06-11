@@ -1,0 +1,46 @@
+---
+- name: install packages
+  apt:
+    name: ufw
+    state: present
+    update_cache: yes
+
+- name: ufw already enabled
+  command: ufw status verbose
+  register: ufw_status_result
+  changed_when: False
+
+- name: open node_exporter port
+  command: ufw allow 9100/tcp
+  when:
+    - node_exporter_enabled|default(false)|bool
+    - not ufw_status_result.stdout is search("9100/tcp.*ALLOW IN.*Anywhere")
+
+- name: open process_exporter port
+  command: ufw allow 9256/tcp
+  when:
+    - process_exporter_enabled|default(false)|bool
+    - not ufw_status_result.stdout is search("9256/tcp.*ALLOW IN.*Anywhere")
+
+- name: open polkadot_metrics port
+  command: ufw allow 9616/tcp
+  when:
+    - not ufw_status_result.stdout is search("9616/tcp.*ALLOW IN.*Anywhere")
+
+- name: open proxy port
+  command: ufw allow {{ proxy_port }}/tcp
+  when:
+    - not ufw_status_result.stdout is search(proxy_port ~ "/tcp.*ALLOW IN.*Anywhere")
+
+- name: close p2p port
+  command: ufw deny {{ p2p_port }}/tcp
+  when:
+    - not ufw_status_result.stdout is search(p2p_port ~ "/tcp.*DENY IN.*Anywhere")
+
+- name: enable firewall
+  shell: |
+    set -o pipefail
+    echo "y" | ufw enable
+  args:
+    executable: /bin/bash
+  when: not ufw_status_result.stdout is search("Status.* active")

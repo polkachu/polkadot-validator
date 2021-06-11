@@ -1,0 +1,10 @@
+---
+- name: Update all servers
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: update and upgrade
+      apt:
+        upgrade: dist
+        update_cache: true

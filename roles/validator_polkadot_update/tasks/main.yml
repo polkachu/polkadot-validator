@@ -1,0 +1,31 @@
+- name: download polkadot binary
+  get_url:
+    url: "https://github.com/paritytech/polkadot/releases/download/v{{polkadot_version}}/polkadot"
+    checksum: "sha256:{{ polkadot_checksum }}"
+    dest: /usr/local/bin/polkadot-new
+    force: true
+    mode: "0700"
+    owner: "polkadot"
+    group: "polkadot"
+
+- name: stop polkadot service
+  systemd:
+    name: polkadot.service
+    state: stopped
+  changed_when: false
+
+- name: substitute new polkadot binary
+  shell: |
+    set -o pipefail
+    if [ -f /usr/local/bin/polkadot-new ]; then
+      cp /usr/local/bin/polkadot-new /usr/local/bin/polkadot
+      chown polkadot:polkadot /usr/local/bin/polkadot
+      chmod 755 /usr/local/bin/polkadot
+    fi
+  args:
+    executable: /bin/bash
+  changed_when: False
+
+- name: restart polkadot service
+  import_role:
+    name: validator_polkadot_restart

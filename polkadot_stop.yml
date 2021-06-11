@@ -1,0 +1,7 @@
+---
+- name: Polkadot Stop
+  hosts: "{{ target }}"
+  become: true
+  gather_facts: false
+  roles:
+    - validator_polkadot_stop

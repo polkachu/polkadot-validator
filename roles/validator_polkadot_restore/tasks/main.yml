@@ -1,0 +1,39 @@
+- name: Install 7z
+  apt:
+    name: p7zip-full
+    state: present
+    update_cache: yes
+
+- name: db_dest_path as fact
+  set_fact:
+    db_dest_path: "/home/polkadot/.local/share/polkadot/chains/{{ polkadot_network_id }}"
+
+- name: download db
+  get_url:
+    url: "{{ polkadot_db_snapshot_url }}"
+    checksum: "sha256:{{ polkadot_db_snapshot_checksum | quote }}"
+    dest: "{{ db_dest_path }}/db.new.7z"
+    mode: "0700"
+    owner: "polkadot"
+    group: "polkadot"
+
+- name: stop polkadot service
+  systemd:
+    name: polkadot.service
+    state: stopped
+
+- name: unpack db
+  shell: |
+    set -o pipefail
+    cd {{ db_dest_path }}
+    mv db db.back
+    7z x db.new.7z
+    rm db.new.7z
+    chown -R polkadot:polkadot db/
+  args:
+    executable: /bin/bash
+
+- name: start polkadot service
+  systemd:
+    name: polkadot.service
+    state: started

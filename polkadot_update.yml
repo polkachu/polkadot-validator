@@ -1,0 +1,7 @@
+---
+- name: Validaot Setup
+  hosts: "{{ target }}"
+  become: true
+  gather_facts: false
+  roles:
+    - validator_polkadot_update

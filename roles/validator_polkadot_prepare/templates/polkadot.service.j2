@@ -1,0 +1,23 @@
+[Unit]
+Description=Polkadot Node
+
+[Service]
+User=polkadot
+Group=polkadot
+ExecStart=/usr/local/bin/polkadot \
+  --validator \
+  --rpc-methods=Unsafe \
+  --unsafe-pruning \
+  --pruning=1000 \
+  -lsync=warn,afg=warn,babe=warn \
+  --public-addr=/ip4/{{ hostvars[inventory_hostname].public_ip.json.ip }}/tcp/{{ proxy_port }} \
+  --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
+  --name {{ validator_name }} \
+  --chain={{ chain }} \
+  --telemetry-url '{{ telemetryUrl }} 1'
+
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

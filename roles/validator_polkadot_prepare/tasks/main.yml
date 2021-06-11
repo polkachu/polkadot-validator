@@ -1,0 +1,25 @@
+- name: Update and upgrade the machine
+  apt:
+    upgrade: dist
+    update_cache: true
+
+- name: Install nvstat
+  apt:
+    name: vnstat
+    state: present
+    update_cache: yes
+
+- name: firewall setup
+  import_tasks: firewall.yml
+
+- name: journald config
+  import_tasks: journald.yml
+
+- name: user and group
+  import_tasks: user.yml
+
+- name: proxy setup
+  import_tasks: proxy.yml
+
+- name: service setup
+  import_tasks: service.yml
