@@ -10,9 +10,9 @@ Make sure that you have a production inventory file. You can start by copying th
 cp inventory.sample inventory
 ```
 
-Make sure that you are familiar with the files in group_vars. They often need to change to stay up to date with the latest release. It is very possible that you will get an error on checksum of data restore in your first attempt, as the data screenshot by polkashots.io is updated frequently.
+Make sure that you are familiar with the files in group_vars. They often need to change to stay up to date with the latest release.
 
-The key validator ansible file is polkadot_full_setup.yml, which will set up a new fresh validator from scratch.
+The key validator ansible file is polkadot_full_setup.yml, which will set up a new fresh validator from scratch. Notice that the full setup will restore from a snapshot from polkashots.io, so do not run the full setup on a machine already running the validator. It is very possible that you will get an error on checksum of data restore in your first attempt, as the data screenshot by polkashots.io is updated frequently.
 
 ```bash
 ansible-playbook -i inventory polkadot_full_setup.yml -e "target=VALIDATOR_TARGET"
@@ -48,15 +48,3 @@ Often, you might want to update all servers. That's easy. Just run:
 ```bash
 ansible-playbook -i inventory all_apt_update.yml
 ```
-
-### table to details all the other features.
-
-## TODO
-
-A script to check the latest release.
-
-make sure to use the extra varraible to set target
-
-## TODO
-
-Make a shell script that accept a target varaible and it will set everything up as a validators
