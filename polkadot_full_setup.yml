@@ -21,4 +21,5 @@
     - validator_polkadot_update
     - process_exporter
     - node_exporter
+    - promtail
     - validator_polkadot_restore

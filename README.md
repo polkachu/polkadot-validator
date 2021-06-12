@@ -30,6 +30,7 @@ The most commonly used playbooks are:
 | polkadot_restore.yml    | Restore the polkadot database with screenshot. Only useful for initial setup             |
 | node_exporter.yml       | Update Node Exporter                                                                     |
 | process_exporter.yml    | Update Process Exporter                                                                  |
+| promtail.yml            | Update Promtail                                                                          |
 
 The less commonly used playbooks are:
 

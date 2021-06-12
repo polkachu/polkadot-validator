@@ -1,8 +1,8 @@
 [kusama1]
-192.168.1.10 validator_name=polkachu-kusama-test-0 telemetryUrl=wss://telemetry.polkadot.io/submit/
+192.168.1.10 validator_name=polkachu-kusama-test-0 log_name=kusama1 telemetryUrl=wss://telemetry.polkadot.io/submit/
 
 [polkadot1]
-192.168.1.20 validator_name=polkachu-polkadot-test-0 telemetryUrl=wss://telemetry.polkadot.io/submit/
+192.168.1.20 validator_name=polkachu-polkadot-test-0 log_name=polkadot1 telemetryUrl=wss://telemetry.polkadot.io/submit/
 
 [kusama:children]
 kusama1
@@ -18,3 +18,4 @@ polkadot1
 ansible_user=vagrant
 ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
+log_monitor=1.1.1.1
