@@ -1,3 +1,6 @@
+{% set execution = hostvars[inventory_hostname].execution|default(None) %}
+{% set wasm_execution = hostvars[inventory_hostname].wasm_execution|default(None) %}
+
 [Unit]
 Description=Polkadot Node
 
@@ -5,6 +8,12 @@ Description=Polkadot Node
 User=polkadot
 Group=polkadot
 ExecStart=/usr/local/bin/polkadot \
+  {% if execution is not none and execution|length %}
+  --execution {{ execution }} \
+  {% endif %}
+  {% if wasm_execution is not none and wasm_execution|length %}
+  --wasm-execution {{ wasm_execution }} \
+  {% endif %}
   --validator \
   --rpc-methods=Unsafe \
   --unsafe-pruning \

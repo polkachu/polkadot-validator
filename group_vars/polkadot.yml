@@ -1,5 +1,10 @@
 ---
 polkadot_network_id: polkadot
 chain: polkadot
-polkadot_db_snapshot_url: "https://dot-rocksdb.polkashots.io/polkadot-5202213.RocksDb.7z"
-polkadot_db_snapshot_checksum: "b6da4aaf5b812133fa040a4f616b2ab9fab8b34913e0ce936ce29a1c60cdd5e7"
+polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/polkadot-5547438.RocksDb.7z'
+polkadot_db_snapshot_checksum: '441f6a623a1f68e2afa558b3432e504955bae640d2155a05ddf7460452472dec'
+# Emergence use when we need to downgrade polkadot
+# polkadot_version: "0.8.30"
+# polkadot_checksum: "9dddd2ede827865c6e81684a138b0f282319e07f717c166b92834699f43274cd"
+# execution: native
+# wasm_execution: Compiled
