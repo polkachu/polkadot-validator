@@ -45,7 +45,7 @@ You will also need to update:
 3. ansible_ssh_private_key_file: The sample file assumes `~/.ssh/id_rsa`, but you might have a different key location.
 4. log_monitor: Enter your monitor server IP. It is most likely a private IP address if you use firewall around your private virtual cloud (VPC).
 
-It is beyond the scope of this guide to help you create a sudo user, alternate ssh port, create a private key, etc. You can do a quick online search and find the answers. In my experience, Digital Ocean have some quality guides on these topics. Stack Overflow can help you trouble-shoot if you are stuck.
+It is beyond the scope of this guide to help you create a sudo user, alternate ssh port, create a private key, install Ansible on your machine, etc. You can do a quick online search and find the answers. In my experience, Digital Ocean have some quality guides on these topics. Stack Overflow can help you trouble-shoot if you are stuck.
 
 ## Basic Cluster Structure
 
