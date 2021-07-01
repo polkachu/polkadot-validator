@@ -76,7 +76,7 @@ ansible-playbook -i inventory all_apt_update.yml
 
 That's it, folks!
 
-## Tips/Nomination Accepted
+## Tips/Nominations Accepted
 
 - DOT: `15ym3MDSG4WPABNoEtx2rAzBB1EYWJDWbWYpNg1BwuWRAQcY`
 - KSM: `CsKvJ4fdesaRALc5swo5iknFDpop7YUwKPJHdmUvBsUcMGb`
