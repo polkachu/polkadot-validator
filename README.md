@@ -23,7 +23,7 @@ But before you rush with this easy setup, you probably want to read on so you un
 
 ## Some Preparations
 
-First of alls, some preparation is in order.
+First of all, some preparation is in order.
 
 Make sure that you have a production inventory file with your confidential server info. You will start by copying the sample inventory file (included in the repo). The sample file gives you a good idea on how to define the inventory.
 
@@ -36,7 +36,7 @@ Needless to say, you need to update the dummy values in the inventory file. For 
 1. Server IP
 2. validator_name (especially important if you want to participate in the Thousand Validators Program)
 3. log_name (so your central monitoring server knows which node it is)
-4. tememetryUrl
+4. telemetryUrl
 
 You will also need to update:
 
