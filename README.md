@@ -11,13 +11,43 @@ While the official setup is very comprehensive, it can be overwhelming for "smal
 3. The setup assumes that you will start from an archived node snapshot provided by https://polkashots.io. It is much simpler and less error-prone than Rust compiling. Highly recommended. In fact, we at Polkachu is currently planning to offer such archived node snapshots to provide redundency to the community.
 4. Since it has happened twice already, I have included a configuration to help you roll back to version `0.8.30` in the `group_vars/polkadot.yml` file.
 
-## Set Up Kusama/Polkadot Validator
+## Summary
 
-Make sure that you have a production inventory file. You will start by copying the sample inventory file (included in the repo). The sample file gives you a good idea on how to define the inventory.
+You run one playbook and set up a Kusama/Polkadot node. Boom!
+
+```bash
+ansible-playbook -i inventory polkadot_full_setup.yml -e "target=VALIDATOR_TARGET"
+```
+
+But before you rush with this easy setup, you probably want to read on so you understand the structure of this Ansible program and all the features it offers.
+
+## Some Preparations
+
+First of alls, some preparation is in order.
+
+Make sure that you have a production inventory file with your confidential server info. You will start by copying the sample inventory file (included in the repo). The sample file gives you a good idea on how to define the inventory.
 
 ```bash
 cp inventory.sample inventory
 ```
+
+Needless to say, you need to update the dummy values in the inventory file. For each Kusama/Polkadot node, you need to update:
+
+1. Server IP
+2. validator_name (especially important if you want to participate in the Thousand Validators Program)
+3. log_name (so your central monitoring server knows which node it is)
+4. tememetryUrl
+
+You will also need to update:
+
+1. ansible_user: The sample file assumes `ansible`, but you might have another username. Make sure that user has `sudo` privilege.
+2. ansible_port: The sample file assumes `22`. But if you are like me, you will have a different ssh port other than `22` to avoid port sniffing.
+3. ansible_ssh_private_key_file: The sample file assumes `~/.ssh/id_rsa`, but you might have a different key location.
+4. log_monitor: Enter your monitor server IP. It is most likely a private IP address if you use firewall around your private virtual cloud (VPC).
+
+It is beyond the scope of this guide to help you create a sudo user, alternate ssh port, create a private key, etc. You can do a quick online search and find the answers. In my experience, Digital Ocean have some quality guides on these topics. Stack Overflow can help you trouble-shoot if you are stuck.
+
+## Basic Cluster Structure
 
 The basic cluster structure is:
 
@@ -25,11 +55,13 @@ The basic cluster structure is:
 2. Name each Polkadot node as `polkadot1`, `polkadot2`, etc. Group all Polkadot nodes into `polkadot` group.
 3. Group all nodes into `validators` group.
 
-The structure allows you to target `vars` to each node, either Kusama or Polkadot cluster, or all nodes.
+The structure allows you to target `vars` to each node, or either Kusama or Polkadot cluster, or the whole cluster.
 
-Make sure that you are familiar with the files in the `group_vars` folder. They follow this cluster structure closely. The files in this folder often need to change to stay up to date with the latest release.
+Make sure that you are familiar with the files in the `group_vars` folder. They follow this cluster structure closely. The files in this folder often need to be changed to stay up to date with the latest releases. I, for one, bump these program versions religiously so I live on the cutting edge!
 
-The key validator ansible file is `polkadot_full_setup.yml`, which will set up a fresh validator from scratch. Notice that the full setup will restore from a snapshot from https://polkashots.io. It is very possible that you will get an error on checksum of data restore in your first attempt, because the snapshot is updated regularly. When this happens, update the files accordingly.
+## Main Playbook to Set Up a Kusama/Polkadot Validator (Archive Node)
+
+The key Ansible playbook is `polkadot_full_setup.yml`. It will set up a fresh validator from scratch. Notice that it will restore from a snapshot from https://polkashots.io. It is very possible that you will get an error on checksum of data restore in your first attempt, because the snapshot is updated regularly. When this happens, update the files accordingly.
 
 The main setup playbook is:
 

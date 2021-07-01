@@ -15,7 +15,7 @@ kusama1
 polkadot1
 
 [all:vars]
-ansible_user=vagrant
+ansible_user=ansible
 ansible_port=22
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
 log_monitor=1.1.1.1
