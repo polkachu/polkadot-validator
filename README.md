@@ -6,8 +6,8 @@ This repo is to set up Polkadot Validation node. This repo is a heavily influenc
 
 While the official setup is very comprehensive, it can be overwhelming for "small" validators (myself included) who do not care much about using Terraform on the infrastructure layer. I took the Ansible part of the script and updated it:
 
-1. The setup is more opinionated, thus the script is simplier by avoid many "if" statements.
-2. It is especially more opinionated about node monitoring by recommending Node Exporter, Processor Exporter, and Promtail (for centralized log monitoring). I also have a companion Ansible script (https://github.com/polkachu/server-monitoring) that installs Prometheus, Grafana and Loki to set up such a centralized monitoring server. This setup will make your life easier if you eventually move from a "small" validator to running a cluster of Polkadot/Kusama nodes.
+1. The setup is more opinionated, thus the script is simplier by avoiding many "if" statements. It is tailored for Ubuntu only, but you should be able to get it working on other Linux distribution with some revisions.
+2. It is more opinionated about node monitoring by recommending Node Exporter, Processor Exporter, and Promtail (for centralized log monitoring). I also have a companion Ansible script (https://github.com/polkachu/server-monitoring) that installs Prometheus, Grafana and Loki to set up such a centralized monitoring server. This setup will make your life easier if you eventually move from a "small" validator to running a cluster of Polkadot/Kusama nodes.
 3. The setup assumes that you will start from an archived node snapshot provided by https://polkashots.io. It is much simpler and less error-prone than Rust compiling. Highly recommended. In fact, we at Polkachu is currently planning to offer such archived node snapshots to provide redundency to the community.
 4. Since it has happened twice already, I have included a configuration to help you roll back to version `0.8.30` in the `group_vars/polkadot.yml` file.
 
@@ -31,11 +31,18 @@ Make sure that you are familiar with the files in the `group_vars` folder. They 
 
 The key validator ansible file is `polkadot_full_setup.yml`, which will set up a fresh validator from scratch. Notice that the full setup will restore from a snapshot from https://polkashots.io. It is very possible that you will get an error on checksum of data restore in your first attempt, because the snapshot is updated regularly. When this happens, update the files accordingly.
 
+The main setup playbook is:
+
 ```bash
 ansible-playbook -i inventory polkadot_full_setup.yml -e "target=VALIDATOR_TARGET"
 ```
 
-The main script also forces to specify a target. VALIDATOR_TARGET could be a host (`kusama1`, `kusama2`, `polkadot1`, `polkadot2`, etc), could be a group (`kusama`, `polkadot`), or all validators (`validators`). This is intentionally designed to prevent you from mistakenly updating all nodes.
+Notice that you need to specify a target when you run this playbook (and other playbooks in this repo, as described in the next section). `VALIDATOR_TARGET` is a placeholder that could be a host (`kusama1`, `kusama2`, `polkadot1`, `polkadot2`, etc), a group (`kusama`, `polkadot`), or all validators (`validators`). This is intentionally designed to:
+
+1. Prevent you from updating all nodes by mistake
+2. Allow you to expirement a move on a low-risk node before rolling out to the whole cluster
+
+## Various Playbooks for Different Purposes
 
 The most commonly used playbooks are:
 
@@ -61,7 +68,7 @@ The less commonly used playbooks are:
 
 ## Update All Servers
 
-Sometimes you might want to install all Linux/Apt patches. The script provides a simple command. Just run:
+One more thing! Sometimes you want to install all apt patches on all machines. I provides you with a simple playbook. Just run:
 
 ```bash
 ansible-playbook -i inventory all_apt_update.yml
