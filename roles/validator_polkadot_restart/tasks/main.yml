@@ -10,8 +10,8 @@
 - name: wait for polkadot service started
   uri:
     url: http://localhost:9933
-    status_code: "200"
-    method: "POST"
+    status_code: '200'
+    method: 'POST'
     body_format: json
     body: |
       { "jsonrpc":"2.0", "method":"system_health", "params":[], "id":1 }

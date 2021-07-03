@@ -2,7 +2,7 @@
 192.168.1.10 validator_name=polkachu-kusama-test-0 log_name=kusama1 telemetryUrl=wss://telemetry.polkadot.io/submit/
 
 [polkadot1]
-192.168.1.20 validator_name=polkachu-polkadot-test-0 log_name=polkadot1 telemetryUrl=wss://telemetry.polkadot.io/submit/
+192.168.1.20 validator_name=polkachu-polkadot-test-0 log_name=polkadot1 telemetryUrl=wss://telemetry.polkadot.io/submit/ chain_path="your_alternative_path_to_store_chain_data' archive_node=true
 
 [kusama:children]
 kusama1

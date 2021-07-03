@@ -1,5 +1,7 @@
 {% set execution = hostvars[inventory_hostname].execution|default(None) %}
 {% set wasm_execution = hostvars[inventory_hostname].wasm_execution|default(None) %}
+{% set archive_node = hostvars[inventory_hostname].archive_node|default(false) %}
+{% set chain_path = hostvars[inventory_hostname].chain_path|default(None) %}
 
 [Unit]
 Description=Polkadot Node
@@ -14,10 +16,17 @@ ExecStart=/usr/local/bin/polkadot \
   {% if wasm_execution is not none and wasm_execution|length %}
   --wasm-execution {{ wasm_execution }} \
   {% endif %}
+  {% if chain_path is not none and chain_path|length %}
+  --base-path {{ chain_path }} \
+  {% endif %}
   --validator \
   --rpc-methods=Unsafe \
+  {% if archive_node is not none and archive_node | bool is sameas true %}
+  --pruning=archive \
+  {% else %}
   --unsafe-pruning \
   --pruning=1000 \
+  {% endif %}
   -lsync=warn,afg=warn,babe=warn \
   --public-addr=/ip4/{{ hostvars[inventory_hostname].public_ip.json.ip }}/tcp/{{ proxy_port }} \
   --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \

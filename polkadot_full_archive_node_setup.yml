@@ -4,6 +4,11 @@
   gather_facts: false
   become: true
   tasks:
+    - name: check archive node flag
+      fail:
+        msg: 'you need to set the archive_node flag as true'
+      when: archive_node is not defined
+
     - name: Wait for nodes to become reachable
       wait_for_connection:
 
@@ -12,7 +17,7 @@
         upgrade: dist
         update_cache: true
 
-- name: Validator Full Setup
+- name: Validator Archive Node Setup
   hosts: '{{ target }}'
   become: true
   gather_facts: false
@@ -22,4 +27,3 @@
     - node_exporter
     - promtail
     - validator_polkadot_update
-    - validator_polkadot_restore

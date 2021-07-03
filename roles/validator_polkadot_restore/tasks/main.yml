@@ -6,16 +6,16 @@
 
 - name: db_dest_path as fact
   set_fact:
-    db_dest_path: "/home/polkadot/.local/share/polkadot/chains/{{ polkadot_network_id }}"
+    db_dest_path: "{{ chain_path | default('/home/polkadot/.local/share/polkadot')  }}/chains/{{ polkadot_network_id }}"
 
 - name: download db
   get_url:
-    url: "{{ polkadot_db_snapshot_url }}"
-    checksum: "sha256:{{ polkadot_db_snapshot_checksum | quote }}"
-    dest: "{{ db_dest_path }}/db.new.7z"
-    mode: "0700"
-    owner: "polkadot"
-    group: "polkadot"
+    url: '{{ polkadot_db_snapshot_url }}'
+    checksum: 'sha256:{{ polkadot_db_snapshot_checksum | quote }}'
+    dest: '{{ db_dest_path }}/db.new.7z'
+    mode: '0700'
+    owner: 'polkadot'
+    group: 'polkadot'
 
 - name: stop polkadot service
   systemd:

@@ -33,10 +33,12 @@ cp inventory.sample inventory
 
 Needless to say, you need to update the dummy values in the inventory file. For each Kusama/Polkadot node, you need to update:
 
-1. Server IP
-2. validator_name (especially important if you want to participate in the Thousand Validators Program)
-3. log_name (so your central monitoring server knows which node it is)
-4. telemetryUrl
+1. Server IP: Your server public IP
+2. validator_name: This is the node name that will show up on telemtry monitoring board. It is especially important if you want to participate in the Thousand Validators Program. For us, we use something like `polkachu-kusama-01` and `polkachu-polkadot-02` to keep it unique and organized.
+3. log_name: This is for your internal central monitoring server. We just use something like `kusama1` and `polkadot2` to keep it simple.
+4. telemetryUrl: Most likely you will use `wss://telemetry-backend.w3f.community/submit/`
+5. archive_node (optional): Set this to true if you want to run an archive node. An archive node is not required for a validator. An archive node has the complete chain data and requires much larger storage space. Most validators do not need an archive node.
+6. chain_path (optional): You can set an alternative path to store chain data. This is especially useful when you run an archive node and want to store chain data on a mounted disk. A mounted disk offers more flexibility when you want to wrap disk, increase or decrease disk size, etc.
 
 You will also need to update:
 
@@ -59,7 +61,7 @@ The structure allows you to target `vars` to each node, or either Kusama or Polk
 
 Make sure that you are familiar with the files in the `group_vars` folder. They follow this clustered structure closely. The files in this folder often need to be changed to stay up to date with the latest releases. I, for one, bump these program versions religiously so I live on the cutting edge!
 
-## Main Playbook to Set Up a Kusama/Polkadot Validator (Archive Node)
+## Main Playbook to Set Up a Kusama/Polkadot Validator (Pruned Node)
 
 The key Ansible playbook is `polkadot_full_setup.yml`. It will set up a fresh validator from scratch. Notice that it will restore from a snapshot from https://polkashots.io. It is very possible that you will get an error on the checksum of data to restore in your first attempt because the snapshot is updated regularly. When this happens, update the files accordingly.
 
@@ -74,19 +76,33 @@ Notice that you need to specify a target when you run this playbook (and other p
 1. Prevent you from updating all nodes by mistake
 2. Allow you to experiment a move on a low-risk node before rolling out to the whole cluster
 
-## Various Playbooks for Different Purposes
+## Main Playbook to Set Up a Kusama/Polkadot Pruned Node
+
+The main setup playbook is:
+
+```bash
+ansible-playbook -i inventory polkadot_full_archive_node_setup.yml -e "target=VALIDATOR_TARGET"
+```
+
+Most validators DO NOT need archive node.
+
+## A Pitfall
+
+We introduced pruned node / archive node toggle in the version 0.2.0 release. The database for pruned node and archive node is not compatible. If you have trouble start your `polkadot` service, a simple trouble-shooting method is just to delete the whole polkadot `db` directory.
+
+## Other Playbooks for Different Purposes
 
 The most commonly used playbooks are:
 
-| Playbook                  | Description                                                                               |
-| ------------------------- | ----------------------------------------------------------------------------------------- |
-| `polkadot_full_setup.yml` | Run the initial full setup                                                                |
-| `polkadot_prepare.yml `   | Do the prep work, such as firewall, set up a proxy, copy service files, create users, etc.|
-| `polkadot_update.yml`     | Update the Polkadot binary and restart the service. You probably need to use it regularly |
-| `polkadot_restore.yml`    | Restore the Polkadot database with a screenshot. Only useful for initial setup            |
-| `node_exporter.yml`       | Update Node Exporter                                                                      |
-| `process_exporter.yml`    | Update Process Exporter                                                                   |
-| `promtail.yml`            | Update Promtail                                                                           |
+| Playbook                  | Description                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| `polkadot_full_setup.yml` | Run the initial full setup                                                                 |
+| `polkadot_prepare.yml `   | Do the prep work, such as firewall, set up a proxy, copy service files, create users, etc. |
+| `polkadot_update.yml`     | Update the Polkadot binary and restart the service. You probably need to use it regularly  |
+| `polkadot_restore.yml`    | Restore the Polkadot database with a screenshot. Only useful for initial setup             |
+| `node_exporter.yml`       | Update Node Exporter                                                                       |
+| `process_exporter.yml`    | Update Process Exporter                                                                    |
+| `promtail.yml`            | Update Promtail                                                                            |
 
 The less commonly used playbooks are:
 

@@ -2,7 +2,7 @@
 - name: rotate server keys
   uri:
     url: http://localhost:9933
-    method: "POST"
+    method: 'POST'
     body_format: json
     body: |
       { "jsonrpc":"2.0", "method":"author_rotateKeys", "params":[], "id":1 }
@@ -14,5 +14,5 @@
 
 - name: save rotateKeys output
   copy:
-    content: "{{ rotate_keys.json }}"
-    dest: /home/polkadot/rotate_keys.log
+    content: '{{ rotate_keys.json }}'
+    dest: '/home/polkadot/rotate_keys.log'
