@@ -76,7 +76,7 @@ Notice that you need to specify a target when you run this playbook (and other p
 1. Prevent you from updating all nodes by mistake
 2. Allow you to experiment a move on a low-risk node before rolling out to the whole cluster
 
-## Main Playbook to Set Up a Kusama/Polkadot Pruned Node
+## Main Playbook to Set Up a Kusama/Polkadot Archive Node
 
 The main setup playbook is:
 
