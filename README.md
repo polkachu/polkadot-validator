@@ -34,7 +34,7 @@ cp inventory.sample inventory
 Needless to say, you need to update the dummy values in the inventory file. For each Kusama/Polkadot node, you need to update:
 
 1. Server IP: Your server public IP
-2. validator_name: This is the node name that will show up on telemtry monitoring board. It is especially important if you want to participate in the Thousand Validators Program. For us, we use something like `polkachu-kusama-01` and `polkachu-polkadot-02` to keep it unique and organized.
+2. validator_name: This is the node name that will show up on telemetry monitoring board. It is especially important if you want to participate in the Thousand Validators Program. For us, we use something like `polkachu-kusama-01` and `polkachu-polkadot-02` to keep it unique and organized.
 3. log_name: This is for your internal central monitoring server. We just use something like `kusama1` and `polkadot2` to keep it simple.
 4. telemetryUrl: Most likely you will use `wss://telemetry-backend.w3f.community/submit/`
 5. archive_node (optional): Set this to true if you want to run an archive node. An archive node is not required for a validator. An archive node has the complete chain data and requires much larger storage space. Most validators do not need an archive node.
@@ -112,7 +112,7 @@ The less commonly used playbooks are:
 | `polkadot_clean_logs.yml`      | Clean journal logs (Probably useful when the disk is full)                            |
 | `polkadot_restart.yml`         | Restart Polkadot ad hoc (Probably useful when server runs wild for no obvious reason) |
 | `polkadot_stop.yml`            | Stop Polkadot ad hoc                                                                  |
-| `polkadot_rorate_keys.yml`     | Rotate session keys the easy way without you ssh into the server yourself             |
+| `polkadot_rotate_key.yml`      | Rotate session keys the easy way without you ssh into the server yourself             |
 
 ## Update All Servers
 

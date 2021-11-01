@@ -1,9 +1,5 @@
 ---
 proxy_port: 80
 p2p_port: 30333
-polkadot_version: '0.9.9-1'
-polkadot_checksum: 'e1381be2e54003d371e4708f6009a6c4ab69c645020336b1ba58d804ff88552e'
-# polkadot_version: '0.9.8'
-# polkadot_checksum: 'b1905f3a92274627d88c62a0b6275980581a4bb2e7435353900a0e8921075caf'
-# polkadot_version: '0.9.9'
-# polkadot_checksum: 'faf12992aa860e725ba7b9e06bb4d09a440b1ab1befbfc00a7cd4e81a2f76ac5'
+polkadot_version: '0.9.12'
+polkadot_checksum: '4a06a043e8fec42e09384a7ebab4331d138101ee55846af356e08d38982d767a'

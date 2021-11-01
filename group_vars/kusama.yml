@@ -1,5 +1,5 @@
 ---
 polkadot_network_id: ksmcc3
 chain: kusama
-polkadot_db_snapshot_url: 'https://ksm-rocksdb.polkashots.io/kusama-8841708.RocksDb.7z'
-polkadot_db_snapshot_checksum: 'ba3d7ff06461b7b9cf993255e24e7a4e12aae3d48b716288cfa2ee0a172739d9'
+polkadot_db_snapshot_url: 'https://ksm-rocksdb.polkashots.io/kusama-9906452.RocksDb.7z'
+polkadot_db_snapshot_checksum: 'e0ea10f4d8d928958bc773be9ee57173b14a468d38f01b0c5a17a5c07d590e64'
