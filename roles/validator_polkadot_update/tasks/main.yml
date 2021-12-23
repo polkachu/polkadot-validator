@@ -1,7 +1,6 @@
 - name: download polkadot binary
   get_url:
     url: 'https://github.com/paritytech/polkadot/releases/download/v{{polkadot_version}}/polkadot'
-    checksum: 'sha256:{{ polkadot_checksum }}'
     dest: /usr/local/bin/polkadot-new
     force: true
     mode: '0700'

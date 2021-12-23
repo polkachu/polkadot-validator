@@ -1,5 +1,4 @@
 ---
 proxy_port: 80
 p2p_port: 30333
-polkadot_version: '0.9.13'
-polkadot_checksum: '7c36be16a5f753ea84421a75090a9c8936f933caf2f458ab0dd3a3f8745890c7'
+polkadot_version: '0.9.14'

@@ -1,5 +1,4 @@
 ---
 polkadot_network_id: polkadot
 chain: polkadot
-polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/polkadot-7666622.RocksDb.7z'
-polkadot_db_snapshot_checksum: '6ce5ac42b8125f26ce4a1350d2ef063c03216a46b77ae64a6a40a46909e79e0a'
+polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/polkadot-8249108.RocksDb.7z'
