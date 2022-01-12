@@ -1,0 +1,8 @@
+---
+- name: Copy snapshot script
+  template:
+    src: 'snapshot.sh.j2'
+    dest: '/home/ubuntu/snapshot.sh'
+    owner: 'ubuntu'
+    group: 'ubuntu'
+    mode: '0700'

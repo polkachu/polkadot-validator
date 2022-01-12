@@ -11,3 +11,7 @@ process_exporter_checksum: '27f133596205654a67b4a3e3af11db640f7d4609a457f48c1559
 # Promtail
 promtail_version: 2.2.1
 promtail_checksum: 40d8d414b44baa78c5010cb7575d74eea035b6b00adb78e9676a045d6730a16f
+
+# Digital Ocean Space for Snapshots (You can ignore if you do not plan to take snapshot from the node)
+snapshot_endpoint: 'https://fra1.digitaloceanspaces.com'
+snapshot_space: 'polkachu'

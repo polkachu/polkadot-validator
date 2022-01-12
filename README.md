@@ -113,6 +113,7 @@ The less commonly used playbooks are:
 | `polkadot_restart.yml`         | Restart Polkadot ad hoc (Probably useful when server runs wild for no obvious reason) |
 | `polkadot_stop.yml`            | Stop Polkadot ad hoc                                                                  |
 | `polkadot_rotate_key.yml`      | Rotate session keys the easy way without you ssh into the server yourself             |
+| `snapshot_script.yml`          | If you intend to use the node to take snapshot, then this script is for you           |
 
 ## Update All Servers
 
