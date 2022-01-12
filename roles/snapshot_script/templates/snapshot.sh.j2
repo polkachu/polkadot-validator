@@ -13,9 +13,9 @@ BLOCK_HEIGHT=$(echo $(( 16#$BLOCK_HEIGHT )))
 sudo service polkadot stop
 
 # Compress the copy and clean up
-FILENAME=$(echo kusama_${BLOCK_HEIGHT}.tar.lz4)
+FILENAME=$(echo {{ chain }}_${BLOCK_HEIGHT}.tar.lz4)
 tar cvf - "/home/polkadot/.local/share/polkadot/chains/{{ polkadot_network_id }}/db" | lz4 > $FILENAME
-aws s3 --endpoint="{{ snapshot_endpoint }}" cp $FILENAME "s3://{{ snapshot_space }}/{{ chain }}/"
+aws s3 --endpoint="{{ snapshot_endpoint }}" --acl="public-read" cp $FILENAME "s3://{{ snapshot_space }}/{{ chain }}/"
 rm $FILENAME
 
 # Restart the service
