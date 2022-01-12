@@ -1,5 +1,5 @@
 ---
-- name: Update Node Exporter
+- name: Update snapshot script
   hosts: '{{ target }}'
   become: true
   gather_facts: false
