@@ -3,6 +3,8 @@
 # Make sure the service is running
 sudo service polkadot start
 
+sleep 3
+
 # Get block height
 BLOCK_HEIGHT=$(curl -H "Content-Type: application/json" --data '{ "jsonrpc":"2.0", "method":"chain_getBlock", "params":[],"id":1 }' localhost:9933  | jq .result.block.header.number)
 BLOCK_HEIGHT=`sed -e 's/^"//' -e 's/"$//' <<<"$BLOCK_HEIGHT"`
@@ -12,11 +14,15 @@ BLOCK_HEIGHT=$(echo $(( 16#$BLOCK_HEIGHT )))
 # Stop service
 sudo service polkadot stop
 
-# Compress the copy and clean up
+# Compress the folder
 FILENAME=$(echo {{ chain }}_${BLOCK_HEIGHT}.tar.lz4)
-tar cvf - "/home/polkadot/.local/share/polkadot/chains/{{ polkadot_network_id }}/db" | lz4 > $FILENAME
-aws s3 --endpoint="{{ snapshot_endpoint }}" --acl="public-read" cp $FILENAME "s3://{{ snapshot_space }}/{{ chain }}/"
-rm $FILENAME
+cd /home/polkadot/.local/share/polkadot/chains/{{ polkadot_network_id }}
+tar cvf - db | lz4 > "/home/ubuntu/$FILENAME"
 
 # Restart the service
 sudo service polkadot start
+
+# Transfer the file and then remove the file
+cd /home/ubuntu/
+aws s3 --endpoint="{{ snapshot_endpoint }}" --acl="public-read" cp $FILENAME "s3://{{ snapshot_space }}/{{ chain }}/"
+rm $FILENAME

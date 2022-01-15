@@ -1,6 +1,6 @@
 ---
 - name: Polkadot Restore
-  hosts: "{{ target }}"
+  hosts: '{{ target }}'
   become: true
   gather_facts: false
   roles:
