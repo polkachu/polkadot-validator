@@ -27,15 +27,10 @@
   when:
     - not ufw_status_result.stdout is search("9616/tcp.*ALLOW IN.*Anywhere")
 
-- name: open proxy port
-  command: ufw allow {{ proxy_port }}/tcp
+- name: open p2p port
+  command: ufw allow {{ p2p_port }}/tcp
   when:
-    - not ufw_status_result.stdout is search(proxy_port ~ "/tcp.*ALLOW IN.*Anywhere")
-
-- name: close p2p port
-  command: ufw deny {{ p2p_port }}/tcp
-  when:
-    - not ufw_status_result.stdout is search(p2p_port ~ "/tcp.*DENY IN.*Anywhere")
+    - not ufw_status_result.stdout is search(p2p_port ~ "/tcp.*ALLOW IN.*Anywhere")
 
 - name: enable firewall
   shell: |

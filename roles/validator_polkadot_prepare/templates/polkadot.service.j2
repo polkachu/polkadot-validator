@@ -32,8 +32,6 @@ ExecStart=/usr/local/bin/polkadot \
   --database paritydb-experimental \
   {% endif %}
   -lsync=warn,afg=warn,babe=warn \
-  --public-addr=/ip4/{{ hostvars[inventory_hostname].public_ip.json.ip }}/tcp/{{ proxy_port }} \
-  --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
   --name {{ validator_name }} \
   --chain={{ chain }} \
   --telemetry-url '{{ telemetryUrl }} 1'

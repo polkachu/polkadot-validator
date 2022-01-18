@@ -18,8 +18,8 @@
 - name: user and group
   import_tasks: user.yml
 
-- name: proxy setup
-  import_tasks: proxy.yml
+- name: Nginx setup
+  import_tasks: nginx.yml
 
 - name: service setup
   import_tasks: service.yml

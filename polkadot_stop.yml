@@ -1,6 +1,6 @@
 ---
 - name: Polkadot Stop
-  hosts: "{{ target }}"
+  hosts: '{{ target }}'
   become: true
   gather_facts: false
   roles:

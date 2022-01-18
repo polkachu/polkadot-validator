@@ -1,32 +1,32 @@
-- name: Install snapd
-  apt:
-    name: snapd
-    state: present
-    update_cache: yes
+# - name: Install snapd
+#   apt:
+#     name: snapd
+#     state: present
+#     update_cache: yes
 
-- name: Install lz4
-  snap:
-    name: lz4
-    state: present
+# - name: Install lz4
+#   snap:
+#     name: lz4
+#     state: present
 
 - name: db_dest_path as fact
   set_fact:
     db_dest_path: "{{ chain_path | default('/home/polkadot/.local/share/polkadot')  }}/chains/{{ polkadot_network_id }}"
 
-- name: download db
-  get_url:
-    url: '{{ polkadot_db_snapshot_url }}'
-    dest: '{{ db_dest_path }}/db.tar.lz4'
-    mode: '0700'
-    owner: 'polkadot'
-    group: 'polkadot'
+# - name: download db
+#   get_url:
+#     url: '{{ polkadot_db_snapshot_url }}'
+#     dest: '{{ db_dest_path }}/db.tar.lz4'
+#     mode: '0700'
+#     owner: 'polkadot'
+#     group: 'polkadot'
 
 - name: stop polkadot service
   systemd:
     name: polkadot.service
     state: stopped
 
-- name: unpack db
+- name: unpack db if rocksDB
   shell: |
     set -o pipefail
     cd {{ db_dest_path }}
@@ -36,6 +36,21 @@
     chown -R polkadot:polkadot db/
   args:
     executable: /bin/bash
+  when:
+    - not parity_db|default(false)|bool
+
+- name: unpack db if paritydb
+  shell: |
+    set -o pipefail
+    cd {{ db_dest_path }}
+    mv paritydb paritydb.back
+    lz4 -c -d db.tar.lz4  | tar -x -C .
+    rm db.tar.lz4
+    chown -R polkadot:polkadot paritydb/
+  args:
+    executable: /bin/bash
+  when:
+    - parity_db|default(false)|bool
 
 - name: start polkadot service
   systemd:

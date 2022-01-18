@@ -39,6 +39,7 @@ Needless to say, you need to update the dummy values in the inventory file. For 
 4. telemetryUrl: Most likely you will use `wss://telemetry-backend.w3f.community/submit/`
 5. archive_node (optional): Set this to true if you want to run an archive node. An archive node is not required for a validator. An archive node has the complete chain data and requires much larger storage space. Most validators do not need an archive node.
 6. chain_path (optional): You can set an alternative path to store chain data. This is especially useful when you run an archive node and want to store chain data on a mounted disk. A mounted disk offers more flexibility when you want to wrap disk, increase or decrease disk size, etc.
+7. parity_db (optional): You can specify if you prefer to use the experimental ParityDB option in stead of the default RocksDB.
 
 You will also need to update:
 
