@@ -1,3 +1,5 @@
+{% set parity_db = hostvars[inventory_hostname].parity_db|default(false) %}
+
 #!/bin/bash
 
 # Make sure the service is running
@@ -17,12 +19,22 @@ sudo service polkadot stop
 # Compress the folder
 FILENAME=$(echo {{ chain }}_${BLOCK_HEIGHT}.tar.lz4)
 cd /home/polkadot/.local/share/polkadot/chains/{{ polkadot_network_id }}
+{% if parity_db is not none and parity_db | bool is sameas true %}
+tar cvf - paritydb | lz4 > "/home/ubuntu/$FILENAME"
+{% else %}
 tar cvf - db | lz4 > "/home/ubuntu/$FILENAME"
+{% endif %}
 
 # Restart the service
 sudo service polkadot start
 
 # Transfer the file and then remove the file
 cd /home/ubuntu/
+
+{% if parity_db is not none and parity_db | bool is sameas true %}
+aws s3 --endpoint="{{ snapshot_endpoint }}" --acl="public-read" cp $FILENAME "s3://{{ snapshot_space }}/{{ chain }}_paritydb/"
+{% else %}
 aws s3 --endpoint="{{ snapshot_endpoint }}" --acl="public-read" cp $FILENAME "s3://{{ snapshot_space }}/{{ chain }}/"
+{% endif %}
+
 rm $FILENAME
