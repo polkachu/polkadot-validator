@@ -1,25 +1,25 @@
-# - name: Install snapd
-#   apt:
-#     name: snapd
-#     state: present
-#     update_cache: yes
+- name: Install snapd
+  apt:
+    name: snapd
+    state: present
+    update_cache: yes
 
-# - name: Install lz4
-#   snap:
-#     name: lz4
-#     state: present
+- name: Install lz4
+  snap:
+    name: lz4
+    state: present
 
 - name: db_dest_path as fact
   set_fact:
     db_dest_path: "{{ chain_path | default('/home/polkadot/.local/share/polkadot')  }}/chains/{{ polkadot_network_id }}"
 
-# - name: download db
-#   get_url:
-#     url: '{{ polkadot_db_snapshot_url }}'
-#     dest: '{{ db_dest_path }}/db.tar.lz4'
-#     mode: '0700'
-#     owner: 'polkadot'
-#     group: 'polkadot'
+- name: download db
+  get_url:
+    url: '{{ polkadot_db_snapshot_url }}'
+    dest: '{{ db_dest_path }}/db.tar.lz4'
+    mode: '0700'
+    owner: 'polkadot'
+    group: 'polkadot'
 
 - name: stop polkadot service
   systemd:
