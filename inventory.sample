@@ -15,8 +15,8 @@ kusama1_paritydb
 polkadot1
 
 [validators:children]
-kusama1
-polkadot1
+kusama
+polkadot
 
 [all:vars]
 ansible_user=ansible
