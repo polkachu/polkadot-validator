@@ -1,4 +1,4 @@
 ---
 polkadot_network_id: polkadot
 chain: polkadot
-polkadot_db_snapshot_url: 'https://dot.polkashots.io/polkadot-8635326.paritydb-experimental.tar.lz4'
+polkadot_db_snapshot_url: 'https://substrate-snapshots.polkachu.xyz/polkadot_paritydb/polkadot_9494121.tar.lz4'
