@@ -1,3 +1,3 @@
 ---
 p2p_port: 30333
-polkadot_version: '0.9.20'
+polkadot_version: '0.9.21'
