@@ -1,4 +1,4 @@
-# Polkadot Validation Node Ansible Setup test
+# Polkadot Validation Node Ansible Setup
 
 This repo is to set up the Polkadot Validation node. This repo is heavily influenced by https://github.com/w3f/polkadot-validator-setup, the official Polkadot secure setup guide.
 
