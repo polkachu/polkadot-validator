@@ -25,8 +25,8 @@ ExecStart=/usr/local/bin/polkadot \
   {% if archive_node is not none and archive_node | bool is sameas true %}
   --pruning=archive \
   {% else %}
-  --unsafe-pruning \
-  --pruning=1000 \
+  --state-pruning=1000 \
+  --blocks-pruning=1000 \
   {% endif %}
   {% if parity_db is not none and parity_db | bool is sameas true %}
   --database paritydb-experimental \
