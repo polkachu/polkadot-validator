@@ -1,7 +1,7 @@
 ---
-- name: Update Node Exporter
+- name: Validator Full Setup
   hosts: '{{ target }}'
   become: true
   gather_facts: false
   roles:
-    - process_exporter
+    - polkadot

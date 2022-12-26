@@ -1,7 +1,7 @@
 ---
-- name: Validator preparation
+- name: Rotate keys
   hosts: '{{ target }}'
   become: true
   gather_facts: false
   roles:
-    - validator_polkadot_prepare
+    - key_rotation

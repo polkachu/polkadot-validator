@@ -1,20 +1,19 @@
 - name: download node_exporter
   get_url:
-    url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
-    checksum: "sha256:{{ node_exporter_checksum }}"
-    dest: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
-    mode: "0700"
+    url: 'https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz'
+    dest: '/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz'
+    mode: '0700'
 
 - name: unarchive node_exporter
   unarchive:
-    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
+    src: '/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz'
     remote_src: yes
-    dest: "/tmp"
+    dest: '/tmp'
 
 - name: copy node_exporter binary
   copy:
-    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter"
-    dest: "/usr/local/bin/"
+    src: '/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter'
+    dest: '/usr/local/bin/'
     remote_src: true
     owner: root
     group: root
@@ -26,7 +25,10 @@
     dest: /etc/systemd/system/node_exporter.service
     owner: root
     group: root
-    mode: "600"
+    mode: '600'
+
+- name: open node_exporter port
+  command: ufw allow 9100/tcp
 
 - name: start node_exporter service
   systemd:

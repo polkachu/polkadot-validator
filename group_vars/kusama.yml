@@ -1,4 +1,3 @@
 ---
 polkadot_network_id: ksmcc3
 chain: kusama
-polkadot_db_snapshot_url: 'https://substrate-snapshots.polkachu.xyz/kusama/kusama_12160135.tar.lz4'

@@ -1,4 +1,1 @@
-.vagrant/
-.vscode/
-inventory
-polkadot_debug.yml
+inventory.ini

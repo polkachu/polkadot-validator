@@ -1,4 +1,0 @@
-- name: Stop polkadot service
-  systemd:
-    name: polkadot.service
-    state: stopped

@@ -1,7 +1,0 @@
----
-- name: Update Node Exporter
-  hosts: "{{ target }}"
-  become: true
-  gather_facts: false
-  roles:
-    - node_exporter

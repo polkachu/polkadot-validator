@@ -1,0 +1,27 @@
+
+[Unit]
+Description=Polkadot Node
+
+[Service]
+User={{ ansible_user }}
+ExecStart=/usr/local/bin/polkadot \
+  --base-path {{ base_path }} \
+  --validator \
+  --rpc-methods=Unsafe \
+  --state-pruning=1000 \
+  --blocks-pruning=1000 \
+  -lsync=warn,afg=warn,babe=warn \
+  --name {{ validator_name }} \
+  --chain={{ chain }} \
+  --port {{ port_prefix }}00 \
+  --rpc-port {{ port_prefix}}33 \
+  --ws-port {{ port_prefix}}44 \
+  --prometheus-port {{ port_prefix}}16 \
+  --prometheus-external \
+  --telemetry-url '{{ telemetryUrl }} 1'
+
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

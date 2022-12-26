@@ -1,17 +1,4 @@
-# Node Exporter
-node_exporter_enabled: true
-node_exporter_version: '1.1.2'
-node_exporter_checksum: '8c1f6a317457a658e0ae68ad710f6b4098db2cad10204649b51e3c043aa3e70d'
-
-# Process Exporter
-process_exporter_enabled: true
-process_exporter_version: '0.7.5'
-process_exporter_checksum: '27f133596205654a67b4a3e3af11db640f7d4609a457f48c155901835bd349c6'
-
-# Promtail
-promtail_version: 2.2.1
-promtail_checksum: 40d8d414b44baa78c5010cb7575d74eea035b6b00adb78e9676a045d6730a16f
-
-# Digital Ocean Space for Snapshots (You can ignore if you do not plan to take snapshot from the node)
-snapshot_endpoint: 'https://fra1.digitaloceanspaces.com'
-snapshot_space: 'polkachu'
+---
+node_exporter_version: '1.5.0'
+promtail_version: '2.7.0'
+polkadot_version: '0.9.36'
