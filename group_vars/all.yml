@@ -1,4 +1,4 @@
 ---
 node_exporter_version: '1.5.0'
 promtail_version: '2.7.0'
-polkadot_version: '0.9.38'
+polkadot_version: '0.9.39-1'
